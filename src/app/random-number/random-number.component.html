@@ -1,0 +1,38 @@
+<div class="main-container">
+        <div class="form-container">
+            <form [formGroup]="numberForm" (ngSubmit)="onSubmit()">
+                <div class="form-field">
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>Select Favorite Number</mat-label>
+                        <mat-select formControlName="favoriteNumber">
+                            <mat-option *ngFor="let num of options" [value]="num">
+                                {{ num }}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="numberForm.get('favoriteNumber')?.hasError('required')">Please Select Number.</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="form-field">
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>Enter Length</mat-label>
+                        <input matInput formControlName="numberLength" type="number" placeholder="Length">
+                        <mat-error *ngIf="numberForm.get('numberLength')?.hasError('required')">Length is required.</mat-error>
+                        <mat-error *ngIf="numberForm.get('numberLength')?.hasError('min')">Length must be at least 1.</mat-error>
+                        <mat-error *ngIf="numberForm.get('numberLength')?.hasError('max')">Length must be less than 20.</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="button-container">
+                    <button mat-raised-button color="primary" type="submit" [disabled]="numberForm.invalid">
+                        Submit
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <div class="number-container" *ngIf="randomNumber">
+            <div class="generated-number-box">
+                <h3>Generated Number</h3>
+                <div class="generated-number">{{ randomNumber }}</div>
+            </div>
+        </div>
+</div>
